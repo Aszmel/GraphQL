@@ -3,7 +3,7 @@ const Header = () => {
   return (
     <div>
       <div className="bar">
-        <a href="">Sick Fits</a>
+        <a href="">SICK-FITS</a>
         <Nav />
       </div>
       <div className="sub-bar">
