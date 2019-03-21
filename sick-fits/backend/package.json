@@ -32,5 +32,8 @@
     "presets": [
       "env"
     ]
+  },
+  "devDependencies": {
+    "bcrypt": "^3.0.4"
   }
 }

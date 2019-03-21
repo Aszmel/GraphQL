@@ -1,3 +1,6 @@
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 const Mutation = {
   async createItem(parent, args, ctx, info) {
     //TODO: check if they are logged in
@@ -31,7 +34,7 @@ const Mutation = {
     );
   },
 
-  async deleteItem(parent, args, ctx, info){
+  async deleteItem(parent, args, ctx, info) {
     const where = { id: args.id };
     //1. find the item
     const item = await ctx.db.query.item({ where }, `{id title}`);
@@ -39,7 +42,32 @@ const Mutation = {
     //TODO
     //3. delete it
     return ctx.db.mutation.deleteItem({ where }, info);
-
+  },
+  async signup(parent, args, ctx, info) {
+    args.email = args.email.toLowerCase();
+    //now using bcrypt to hash pass - number is SALT
+    //which make same pass like cat123 always have diff hashes!
+    const password = await bcrypt.hash(args.password, 10);
+    //create user in the database
+    const user = await ctx.db.mutation.createUser(
+      {
+        data: {
+          ...args,
+          password,
+          permissions: { set: ["USER"] }
+        }
+      },
+      info
+    );
+    //create a Js Web Token (JWT) for signed users
+    const token = jwt.sign({ userID: user.id }, process.env.APP_SECRET);
+    // we now set jwt as a cookie on the response
+    ctx.response.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365 //1year cookie
+    });
+    //returning the user to the browser
+    return user;
   }
 };
 
