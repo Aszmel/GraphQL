@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const Mutation = {
+const Mutations = {
   async createItem(parent, args, ctx, info) {
     //TODO: check if they are logged in
 
@@ -71,4 +71,4 @@ const Mutation = {
   }
 };
 
-module.exports = Mutation;
+module.exports = Mutations;
