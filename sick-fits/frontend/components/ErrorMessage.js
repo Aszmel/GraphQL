@@ -29,8 +29,8 @@ const DisplayError = ({ error }) => {
       <ErrorStyles key={i}>
         <p data-test="graphql-error">
           <strong>Nope!</strong>
-          {/* {error.message.replace('GraphQL error: ', '')} */}
-          <p>One or more fields must be unique!</p>
+          {error.message.replace("GraphQL error: ", "")}
+          {/* <p>One or more fields must be unique!</p> */}
         </p>
       </ErrorStyles>
     ));
@@ -39,8 +39,8 @@ const DisplayError = ({ error }) => {
     <ErrorStyles>
       <p data-test="graphql-error">
         <strong>Nope!</strong>
-        {/* {error.message.replace("GraphQL error: ", "")} */}
-        <p>One or more fields must be unique!</p>
+        {error.message.replace("GraphQL error: ", "")}
+        {/* <p>One or more fields must be unique!</p> */}
       </p>
     </ErrorStyles>
   );
