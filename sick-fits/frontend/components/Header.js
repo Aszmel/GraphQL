@@ -1,8 +1,9 @@
-import Nav from "./Nav";
-import styled from "styled-components";
 import Link from "next/link";
-import Router from "next/router";
+import styled from "styled-components";
 import NProgres from "nprogress";
+import Router from "next/router";
+import Nav from "./Nav";
+import Cart from "./Cart";
 
 Router.onRouteChangeStart = () => {
   NProgres.start();
@@ -66,7 +67,7 @@ const Header = () => {
       <div className="sub-bar">
         <p>Search</p>
       </div>
-      <div>Cart</div>
+      <Cart />
     </StyledHeader>
   );
 };
