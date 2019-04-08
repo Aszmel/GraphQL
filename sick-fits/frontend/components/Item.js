@@ -5,8 +5,8 @@ import Title from "./styles/Title";
 import ItemStyles from "./styles/ItemStyles";
 import DeleteItem from "./DeleteItem";
 import PriceTag from "./styles/PriceTag";
-import moneyFormat from "../lib/formatMoney";
 import formatMoney from "../lib/formatMoney";
+import AddToCart from "./AddToCart";
 
 class Item extends Component {
   static propTypes = {
@@ -36,10 +36,14 @@ class Item extends Component {
               query: { id: item.id }
             }}
           >
-            <a>Edit</a>
+            <a>
+              Edit <span>⚙</span>
+            </a>
           </Link>
-          <button>Add to Cart</button>
-          <DeleteItem id={item.id}>Delete This Item</DeleteItem>
+          <AddToCart id={item.id} />
+          <DeleteItem id={item.id}>
+            Delete This Item <span>❌</span>
+          </DeleteItem>
         </div>
       </ItemStyles>
     );

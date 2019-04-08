@@ -204,6 +204,45 @@ const Mutations = {
       },
       info
     );
+  },
+  async addToCart(parent, args, ctx, info) {
+    //make sure they are signed in
+    const { userId } = ctx.request;
+    if (!userId) {
+      throw new Error("You must be logged to do that!");
+    }
+    //query the user current cart
+    const [existingCartItem] = await ctx.db.query.cartItems({
+      where: {
+        user: { id: userId },
+        item: { id: args.id }
+      }
+    });
+    //check if the item is already in the cart (so add or increment)
+    if (existingCartItem) {
+      console.log("This item is already in the cart");
+      return ctx.db.mutation.updateCartItem(
+        {
+          where: { id: existingCartItem.id },
+          data: { quantity: existingCartItem.quantity + 1 }
+        },
+        info
+      );
+    }
+    //if item not in cart, add fresh item to cart for that user
+    return ctx.db.mutation.createCartItem(
+      {
+        data: {
+          user: {
+            connect: { id: userId }
+          },
+          item: {
+            connect: { id: args.id }
+          }
+        }
+      },
+      info
+    );
   }
 };
 
