@@ -5,6 +5,13 @@ import PropTypes from "prop-types";
 import gql from "graphql-tag";
 import { CURRENT_USER_QUERY } from "./User";
 
+const REMOVE_FROM_CART_MUTATION = gql`
+  mutation removeFromCart($id: ID!) {
+    removeFromCart(id: $id){
+    id}
+  }
+`;
+
 const BigButton = styled.button`
   font-size: 3rem;
   background: none;
@@ -16,8 +23,28 @@ const BigButton = styled.button`
 `;
 
 class RemoveFromCart extends React.Component {
+  static propTypes = {
+    id: PropTypes.string.isRequired
+  };
   render() {
-    return <BigButton title="Delete Item">&times</BigButton>;
+    return (
+      <Mutation
+        mutation={REMOVE_FROM_CART_MUTATION}
+        variables={{ id: this.props.id }}
+      >
+        {(removeFromCart, { loading, err }) => (
+          <BigButton
+            disabled={loading}
+            onClick={() => {
+              removeFromCart().catch(err => alert(err.message));
+            }}
+            title="Delete Item"
+          >
+            &times;
+          </BigButton>
+        )}
+      </Mutation>
+    );
   }
 }
 

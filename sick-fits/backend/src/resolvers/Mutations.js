@@ -246,7 +246,7 @@ const Mutations = {
   },
   async removeFromCart(parent, args, ctx, info) {
     //find that cart item
-    const cartItem = await ctx.db.query.cartItems(
+    const cartItem = await ctx.db.query.cartItem(
       {
         where: {
           id: args.id
@@ -259,7 +259,7 @@ const Mutations = {
       throw new Error("No Cart Item Found");
     }
     //check if they own the cart item
-    if (cartItem.user.id !== ctx.request.user.id) {
+    if (cartItem.user.id !== ctx.request.userId) {
       throw new Error(`You don't have priviliges to this Item`);
     }
     //if yes, remove it
