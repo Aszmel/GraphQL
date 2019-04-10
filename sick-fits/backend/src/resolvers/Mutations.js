@@ -243,6 +243,34 @@ const Mutations = {
       },
       info
     );
+  },
+  async removeFromCart(parent, args, ctx, info) {
+    //find that cart item
+    const cartItem = await ctx.db.query.cartItems(
+      {
+        where: {
+          id: args.id
+        }
+      },
+      `{id, user { id }}`
+    );
+    // make sure we find the item
+    if (!cartItem) {
+      throw new Error("No Cart Item Found");
+    }
+    //check if they own the cart item
+    if (cartItem.user.id !== ctx.request.user.id) {
+      throw new Error(`You don't have priviliges to this Item`);
+    }
+    //if yes, remove it
+    return ctx.db.mutation.deleteCartItem(
+      {
+        where: {
+          id: args.id
+        }
+      },
+      info
+    );
   }
 };
 
