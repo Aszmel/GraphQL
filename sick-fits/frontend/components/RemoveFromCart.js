@@ -7,8 +7,9 @@ import { CURRENT_USER_QUERY } from "./User";
 
 const REMOVE_FROM_CART_MUTATION = gql`
   mutation removeFromCart($id: ID!) {
-    removeFromCart(id: $id){
-    id}
+    removeFromCart(id: $id) {
+      id
+    }
   }
 `;
 
@@ -26,13 +27,39 @@ class RemoveFromCart extends React.Component {
   static propTypes = {
     id: PropTypes.string.isRequired
   };
+
+  //---------------Manually update removed items--------------------
+  //update gets called ASA we get res back from server
+  //after the mutation has been performed
+  update = (cache, payload) => {
+    //read the cache
+    const data = cache.readQuery({ query: CURRENT_USER_QUERY });
+    //remove the item from the apollo cache
+    const cartItemId = payload.data.removeFromCart.id;
+    data.me.cart = data.me.cart.filter(cartItem => cartItem.id !== cartItemId);
+    //write it back to the cache
+    cache.writeQuery({ query: CURRENT_USER_QUERY, data });
+  };
+  //--------------------------------------------------------------
+
   render() {
     return (
       <Mutation
         mutation={REMOVE_FROM_CART_MUTATION}
         variables={{ id: this.props.id }}
+        update={this.update}
+        // this below make assumpion that item removed and info about
+        // this got back from server (which make some laziness in UI)
+        // ...make UI to delete item at once!
+        optimisticResponse={{
+          __typename: "Mutation",
+          removeFromCart: {
+            __typename: "CartItem",
+            id: this.props.id
+          }
+        }}
       >
-        {(removeFromCart, { loading, err }) => (
+        {(removeFromCart, { loading, error }) => (
           <BigButton
             disabled={loading}
             onClick={() => {
