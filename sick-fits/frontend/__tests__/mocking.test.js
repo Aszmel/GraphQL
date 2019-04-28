@@ -25,7 +25,7 @@ describe("mocking testing", () => {
 
   it("can fetch foods", async () => {
     const me = new Person("Arek", ["pizza", "burgs"]);
-    //due to time taking fetching or server down or something...
+    //due to time taking of fetching or server down or something...
     //we mocking our fetching function
     me.fetchFavFoods = jest.fn().mockResolvedValue(["sushi", "pasta"]);
     const favFoods = await me.fetchFavFoods();
