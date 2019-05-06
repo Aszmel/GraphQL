@@ -8,9 +8,9 @@ enum Permission {
 }
 
 type User {
-  id: ID! @Unique @id
+  id: ID! @unique @id
   name: String!
-  email: String! @Unique
+  email: String! @unique
   password: String!
   resetToken: String
   resetTokenExpiry: Float
@@ -21,7 +21,7 @@ type User {
 }
 
 type Item {
-  id: ID! @id @Unique
+  id: ID! @id @unique
   title: String!
   description: String!
   image: String
@@ -42,7 +42,7 @@ type CartItem {
 }
 
 type OrderItem {
-  id: ID! @Unique @id
+  id: ID! @unique @id
   title: String!
   description: String!
   image: String!
@@ -53,7 +53,7 @@ type OrderItem {
 }
 
 type Order {
-  id: ID! @Unique @id
+  id: ID! @unique @id
   items: [OrderItem!]!
   total: Int!
   user: User!

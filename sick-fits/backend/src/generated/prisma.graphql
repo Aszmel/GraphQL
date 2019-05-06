@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/arkadiusz-szymczak-48ad95/sick-fit/dev
-# timestamp: Thu Apr 25 2019 17:46:43 GMT+0100 (Środkowoeuropejski czas stand.)
+# timestamp: Mon May 06 2019 18:59:48 GMT+0100 (Środkowoeuropejski czas stand.)
 
 type AggregateCartItem {
   count: Int!
@@ -2423,4 +2423,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  email: String
 }
