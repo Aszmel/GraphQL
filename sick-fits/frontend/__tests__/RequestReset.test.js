@@ -5,7 +5,6 @@ import { MockedProvider } from "react-apollo/test-utils";
 import RequestReset, {
   REQUEST_RESET_MUTATION
 } from "../components/RequestReset";
-import { wrap } from "module";
 
 const mocks = [
   {
