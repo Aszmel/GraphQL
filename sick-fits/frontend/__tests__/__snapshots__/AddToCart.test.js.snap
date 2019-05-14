@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AddToCart/> renders and match snapshot 1`] = `
+<button
+  disabled={false}
+  onClick={[Function]}
+>
+  Add
+   To Cart 
+  <span>
+    💼
+  </span>
+</button>
+`;
