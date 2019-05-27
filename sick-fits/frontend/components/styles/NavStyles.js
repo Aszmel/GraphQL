@@ -66,3 +66,4 @@ const NavStyles = styled.ul`
 `;
 
 export default NavStyles;
+export { SignedButton };
