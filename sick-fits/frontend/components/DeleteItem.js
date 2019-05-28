@@ -38,7 +38,7 @@ class DeleteItem extends Component {
             onClick={() => {
               if (confirm("Are you sure you want to delete this item?")) {
                 deleteItem().catch(err => {
-                  alert(err.message);
+                  alert("You must be logged in or have permissions to do that!");
                 });
               }
             }}
