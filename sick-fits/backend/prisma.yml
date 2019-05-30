@@ -1,6 +1,7 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://sick-picks-prod-5f3943ef70.herokuapp.com/sick-picks-prod/prod
 datamodel: datamodel.prisma
-# secret: ${env.PRISMA_SECRET}
+secret: ${env:PRISMA_SECRET}
 
 hooks:
   post-deploy:
