@@ -52,3 +52,5 @@ class DeleteItem extends Component {
     );
   }
 }
+
+export default DeleteItem;
